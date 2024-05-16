@@ -1,0 +1,12 @@
+.navbar{
+    background-color: darkorange !important;
+} 
+.navbar-brand{
+    font-size: 1.7em;
+    font-weight: 700;
+}
+.red{
+border: 2px solid black;
+border-radius:10px;
+background: red;
+}
