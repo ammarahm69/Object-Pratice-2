@@ -99,11 +99,16 @@ let carList = {
 }
 // console.log(carList);
 let main = document.getElementById('main');
-for (var key in carList) {
-    for (var key1 in carList[key]) {
-        var obj = carList[key][key1];
-        console.log(obj.detail.color);
-        main.innerHTML += `
+let brand = document.getElementById('brand');
+let carBrand = document.getElementById('carname');
+brand.innerHTML = `<option>Select brand name</option>`
+carBrand.innerHTML = `<option>Select car name</option>`
+function renderAll() {
+    for (var key in carList) {
+        brand.innerHTML += `<option value=${key}>${key.toUpperCase()}</option>`
+        for (var key1 in carList[key]) {
+            var obj = carList[key][key1];
+            main.innerHTML += `
             <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-5">
             <div class="card" style="width: 18rem;">
                 <img src="${obj.image}" class="card-img-top mb-2">
@@ -117,8 +122,44 @@ for (var key in carList) {
               </div>
         </div>
             `
-    }
+        }
 
+    }
+}
+renderAll()
+function setCar() {
+    carBrand.innerHTML = `<option>Select car name</option>`; // Clear previous options
+    for (var key in carList[brand.value]) {
+        carBrand.innerHTML += `<option value=${key}>${key.toUpperCase()}</option>`;
+    }
+}
+var cardetail = document.getElementById('carDetail');
+
+function searchCars() {
+    var brand = document.getElementById('brand').value;
+    var carName = document.getElementById('carname').value;
+    var car = carList[brand][carName];
+
+    main.style.display = 'none';
+    cardetail.style.display = 'flex';
+
+    cardetail.innerHTML = `
+        <div class="card mb-3 mt-5" style="max-width: 100%;">
+            <div class="row g-0">
+                <div class="col-md-4">
+                    <img src="${car.image}" class="img-fluid rounded-start" alt="...">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title">${carName.toUpperCase()}</h5>
+                        <p class="card-text"><strong>Model</strong>: ${car.detail.model}</p>
+                        <p class="card-text"><strong>Transmission</strong>: ${car.Transmission}</p>
+                        <p class="card-text"><strong>Price</strong>: ${car.price}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
 }
 
 
